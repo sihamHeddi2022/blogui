@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body {
+    overflow-x: hidden;
+}
+  .navbar h1 {
+    font-family: 'Fasthand', cursive;  }
+
+
+.links .l{
+    font-family: 'Indie Flower', cursive;
+}
+.hero {
+    font-family: 'Inika', serif;
+}
