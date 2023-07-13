@@ -14,14 +14,16 @@ export default function Hero() {
       <div className='bg-black/50 w-full h-[500px] absolute top-0 left-0'>
       </div>
        <div className='absolute top-28 font-bold w-full flex flex-col items-center justify-center   hero '>
-          <h2 className='text-2xl  text-center text-white'>
+          <h2 className='text-base lg:text-2xl md:text-2xl   text-center text-white'>
                Read The feeling of other people  or Write and <br />
             express what  you feel
           </h2>
         
-            <input type="text" placeholder='write something here' className='mt-12 outline-none p-3 w-[700px]' />
-            <div className="w-[690px] flex justify-end gap-1 relative -top-10">
-            <button className="bg-pink-600 hover:bg-pink-700 text-white px-6 py-1 rounded-md text-sm lg:text-lg">Category </button>
+            <input type="text" placeholder='write something here' className='mb-5 lg:mb-0 md:mb-0 sm:mb-0 mt-12 outline-none p-3 lg:w-[700px] md:w-[500px] sm:w-[400px]' />
+            <div className="static justify-center  sm:w-[390px] lg:w-[690px] md:w-[490px] flex lg:justify-end md:justify-end sm:justify-end gap-1 lg:relative md:relative sm:relative -top-10">
+            <button className="bg-pink-600 hover:bg-pink-700 text-white px-6 py-1 rounded-md text-sm lg:text-lg">
+               Category
+             </button>
             <Link to="/search"  className="bg-green-600 hover:bg-green-950  text-white px-6 py-2 rounded-md text-sm lg:text-lg"><FaSearch/></Link>
    
             </div>
