@@ -8,6 +8,7 @@ import { Rating, ThinStar } from '@smastrom/react-rating'
 
 import '@smastrom/react-rating/style.css'
 import Comment from '../components/sub/Comment'
+import EditComment from '../components/sub/EditComment'
 function PostId() {
   const [rating, setRating] = useState(0)
   const myStyles = {
@@ -62,7 +63,7 @@ function PostId() {
               Submit
             </button>
           </div>
-          <Comment/>
+          <EditComment/>
           <Comment/>
           <Comment/>
        </div>

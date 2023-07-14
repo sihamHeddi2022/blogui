@@ -1,7 +1,14 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { FaBox, FaEdit } from 'react-icons/fa'
+import { Rating, ThinStar } from '@smastrom/react-rating'
 
 function Comment() {
+  const [rating, setRating] = useState(3)
+  const myStyles = {
+    itemShapes: ThinStar,
+    activeFillColor: '#ffb700',
+    inactiveFillColor: '#fbf1a9' 
+  }
   return (
     <div className='my-5'>
      
@@ -13,9 +20,12 @@ function Comment() {
           <h3 className='font-bold'>
             Username
           </h3>
+          <Rating style={{ maxWidth: 122 }} value={rating} onChange={setRating} readOnly itemStyles={myStyles} />
           <p>
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cupiditate, lab
           </p>
+       
+
        </div>
 
       <div className='flex gap-2 ml-auto'>

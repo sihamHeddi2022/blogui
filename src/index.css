@@ -14,3 +14,20 @@ body {
 .hero {
     font-family: 'Inika', serif;
 }
+.active {
+    background-color: #0d6efd;
+    color: white;
+}
+.page-item {
+    background-color: rgb(255, 255, 255);
+    border: 1px solid #dee2e6;  
+    padding: .375rem .75rem;
+     color: #0d6efd;
+    text-align: center;
+}
+.pagination {
+    display: flex;
+    flex-direction: row; 
+    gap: 1rem;
+    justify-content: center;
+}
