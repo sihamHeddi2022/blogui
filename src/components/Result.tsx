@@ -1,8 +1,12 @@
 import React from 'react'
 import Post from './sub/Post'
-import ReactPaginate from 'react-paginate'
+import { ShortPost } from '../types'
+// import ReactPaginate from 'react-paginate'
 
-function Result() {
+type Posts = {posts:ShortPost[]}
+
+
+function Result(props:Posts) {
   return (
     <div className='text-center'>
 
@@ -13,12 +17,13 @@ function Result() {
                     </h1>
 
                     <div className="grid  grid-cols-1  my-12 lg:gap-8  lg:grid-cols-3 md:grid-cols-2 md:gap-5   mx-8">
-                        <Post/>
-                        <Post/>
-                        <Post/>
-                        <Post/>
+                        {
+                          props.posts.map(post=>(<Post {...post} key={post._id}/>))
+                        }
+                        
+                  
                     </div>
-                    <ReactPaginate
+                    {/* <ReactPaginate
                         breakLabel="..."
                         nextLabel=" >"
                       
@@ -36,7 +41,7 @@ function Result() {
                         breakLinkClassName="page-link"
                         containerClassName="pagination"
                         activeClassName="active"
-                     />
+                     /> */}
 
 
     </div>

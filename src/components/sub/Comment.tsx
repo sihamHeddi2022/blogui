@@ -1,9 +1,12 @@
-import React,{useState} from 'react'
+import React from 'react'
 import { FaBox, FaEdit } from 'react-icons/fa'
 import { Rating, ThinStar } from '@smastrom/react-rating'
+import { Commenty } from '../../types'
 
-function Comment() {
-  const [rating, setRating] = useState(3)
+type C = Commenty & {
+  isAuth:boolean
+}
+function Comment(props:C) {
   const myStyles = {
     itemShapes: ThinStar,
     activeFillColor: '#ffb700',
@@ -20,22 +23,26 @@ function Comment() {
           <h3 className='font-bold'>
             Username
           </h3>
-          <Rating style={{ maxWidth: 122 }} value={rating} onChange={setRating} readOnly itemStyles={myStyles} />
+          <Rating style={{ maxWidth: 122 }} value={props.reviews}  readOnly itemStyles={myStyles} />
           <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cupiditate, lab
+            {props.content}
           </p>
        
 
        </div>
-
-      <div className='flex gap-2 ml-auto'>
-        <button className='text-emerald-600 flex gap-1 items-center'>
-        <FaEdit/>Edit
-        </button>
-        <button className='text-red-700 flex gap-1 items-center'>
-        <FaBox/> delete
-        </button>
-      </div>
+      {
+        props.isAuth && (
+          <div className='flex gap-2 ml-auto'>
+          <button className='text-emerald-600 flex gap-1 items-center'>
+          <FaEdit/>Edit
+          </button>
+          <button className='text-red-700 flex gap-1 items-center'>
+          <FaBox/> delete
+          </button>
+        </div>
+        )
+      }
+   
 
      </div>
      
