@@ -1,8 +1,38 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import NavBar from '../components/NavBar'
 import Post from '../components/sub/Post'
+import { useNavigate } from 'react-router-dom'
+import { instance } from '../api'
+import { ShortPost } from '../types'
 
 function Dashboard() {
+  const navigate=useNavigate()
+  const [posts, setposts] = useState<ShortPost[]>([])
+
+  useEffect(() => {
+    const token =localStorage.getItem("token")
+    if(token) {
+      
+      instance.get("/posts",{
+        headers:{
+          Authorization:"Bearer "+token
+        }
+      }).then((res)=>{
+        console.log(res);
+        
+        setposts(res.data)
+      })
+      .catch(err=>console.log(err))
+    
+      
+         
+    }
+    else {
+      navigate("/")
+    }
+
+  }, [])
+  
   return (
     <div>
 
@@ -17,10 +47,11 @@ function Dashboard() {
 
 
               <div className="grid  grid-cols-1  my-12 lg:gap-8  lg:grid-cols-3 md:grid-cols-2 md:gap-5 text-center  mx-8">
-                            <Post/>
-                            <Post/>
-                            <Post/>
-                            <Post/>
+                     
+              {
+                posts.length>0 && posts.map((post:ShortPost)=> <Post {...post} key={post._id} />)
+              }
+              
                 </div>
 
 

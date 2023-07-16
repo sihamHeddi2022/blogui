@@ -15,14 +15,18 @@ import { Commenty, ShortPost } from '../types'
 function PostId() {
 
 
+  const [comment, setcomment] = useState("")
+
   const [isAuth, setisAuth] = useState(false)
-  const [rating, setRating] = useState(0)
+  const [rating, setRating] = useState(1)
   const {id}=useParams()
   const [post, setpost] = useState<ShortPost | null>(null)
    
+  const idu = localStorage.getItem("id")
+  const token =localStorage.getItem("token")
    useEffect(() => {
     
-    const token =localStorage.getItem("token")
+ 
     if(token) setisAuth(true)
     
     instance.get("/post/"+id).then(res=>{
@@ -40,6 +44,31 @@ function PostId() {
     activeFillColor: '#ffb700',
     inactiveFillColor: '#fbf1a9'
   }
+  
+  const handleSubmit = (e:Event)=>{
+     e.preventDefault()
+
+     instance.post("/post/"+post?._id+"/feedback/",{
+        content:comment,
+        reviews : rating
+     },{
+      headers:{
+        Authorization:"Bearer "+token
+      }
+    })
+    .then(()=>{
+         window.location.reload()
+    })
+    .catch((err)=>console.log(err))
+
+
+
+
+
+
+
+  }
+
   return (
     <div>
 
@@ -55,17 +84,19 @@ function PostId() {
          </h2>
         
         {
-          isAuth && (  <div className='flex gap-2'>
-                          <Link className='flex bg-rose-700 items-center gap-1	text-white px-4 py-2 rounded-md' to={"/editi/"+id}>
-                            <FaImage/> Edit Image
-                          </Link>
-                          <Link className='flex bg-rose-700 items-center gap-1	 text-white px-4 py-2 rounded-md' to={"/edit/"+id}>
-                          <FaEdit/>  Edit
-                          </Link>
-                          <button className='flex bg-indigo-500 items-center gap-1		text-white px-4 py-2 rounded-md' >
-                          <FaBox/> Delete
-                          </button>
-                    </div>
+          isAuth && ( post?.authorId== idu && (
+            <div className='flex gap-2'>
+                <Link className='flex bg-rose-700 items-center gap-1	text-white px-4 py-2 rounded-md' to={"/editi/"+id}>
+                  <FaImage/> Edit Image
+                </Link>
+                <Link className='flex bg-rose-700 items-center gap-1	 text-white px-4 py-2 rounded-md' to={"/edit/"+id}>
+                <FaEdit/>  Edit
+                </Link>
+                <button className='flex bg-indigo-500 items-center gap-1		text-white px-4 py-2 rounded-md' >
+                <FaBox/> Delete
+                </button>
+            </div>
+          ) 
           )
         }
        
@@ -89,10 +120,14 @@ function PostId() {
                   <Rating style={{ maxWidth: 300 }} value={rating} onChange={setRating} itemStyles={myStyles} />
                 </div>
                 <div className='bg-indigo-50	my-3	 w-full p-3'>
-                  <input type="text" className='w-full p-2 outline-none' placeholder='Comment here ...' />
-                  <button className='w-full my-2 p-2 bg-blue-700 text-white'>
-                    Submit
-                  </button>
+                  <form action="" onSubmit={handleSubmit}>
+                      <input type="text" required value={comment} onChange={(e)=>setcomment(e.target.value)} className='w-full p-2 outline-none' placeholder='Comment here ...' />
+                      <button type='submit' className='w-full my-2 p-2 bg-blue-700 text-white' >
+                        Submit
+                      </button>
+
+                  </form>
+               
                 </div>
            
            </>
@@ -103,7 +138,7 @@ function PostId() {
             Comments
           </h1>
           {
-            post?.comments?.map((c:Commenty)=><Comment {...c} isAuth={isAuth}  />)
+            post?.comments?.map((c:Commenty)=><Comment {...c} isAuth={isAuth} pid={post?._id}  />)
           }
         
        </div>

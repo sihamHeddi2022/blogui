@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Popular from '../components/Popular'
 import Hero from '../components/Hero'
 import NavBar from '../components/NavBar'
 import Result from '../components/Result'
@@ -22,7 +21,14 @@ function Search() {
     else {
 
       instance.get(`/search?keyword=${keyword}&category=${category}`)
-      .then(res=>setposts(res.data))
+      .then(res=>{
+       
+        console.log(res);
+        
+      
+        setposts(res.data)
+      
+      })
     
     }
    

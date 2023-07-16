@@ -1,5 +1,6 @@
 
 export type Commenty = {
+    _id:string,
     userId:string,
     reviews:number,
     content:string

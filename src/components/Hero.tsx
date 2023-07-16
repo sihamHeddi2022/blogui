@@ -1,12 +1,13 @@
-import React , {useState} from 'react'
+import React , {useEffect, useState} from 'react'
 import imageSrc from '../assets/Rectangle 4.png';
-import {useNavigate } from "react-router-dom";
+import {useNavigate, useSearchParams } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Hero() {
-  
+  const [searchParams] = useSearchParams();
+
   const [keyword, setkeyword] = useState("")
 
   const [category, setcategory] = useState("")
@@ -35,7 +36,24 @@ export default function Hero() {
   }
 
 
+ useEffect(() => {
  
+
+  const keyword= searchParams.get("keyword") 
+  const category = searchParams.get("category")
+   
+  if (keyword) {
+    setkeyword(keyword)
+  }
+
+  if (category) {
+    setcategory(category)
+  }
+
+
+
+ }, [])
+   
 
 
   return (
