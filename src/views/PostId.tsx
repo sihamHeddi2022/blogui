@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from 'react'
 import NavBar from '../components/NavBar'
 import Hero from '../components/Hero'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import {FaEdit,FaImage,FaBox} from 'react-icons/fa'
 import imageSrc from '../assets/blog.jpg';
 import { Rating, ThinStar } from '@smastrom/react-rating'
@@ -68,6 +68,22 @@ function PostId() {
 
 
   }
+  const navigate=useNavigate()
+  
+  const deletto = ()=>{
+      
+    instance.delete(`/post/${id}/`,{
+      headers:{
+        Authorization:"Bearer "+token
+      }
+    })
+    .then(()=>{
+        navigate("/")
+    })
+    .catch(err=>console.log(err))
+    }
+
+   
 
   return (
     <div>
@@ -86,13 +102,13 @@ function PostId() {
         {
           isAuth && ( post?.authorId== idu && (
             <div className='flex gap-2'>
-                <Link className='flex bg-rose-700 items-center gap-1	text-white px-4 py-2 rounded-md' to={"/editi/"+id}>
+                <Link to={"/edit/"+post?._id} className='flex bg-rose-700 items-center gap-1	text-white px-4 py-2 rounded-md' >
                   <FaImage/> Edit Image
                 </Link>
                 <Link className='flex bg-rose-700 items-center gap-1	 text-white px-4 py-2 rounded-md' to={"/edit/"+id}>
                 <FaEdit/>  Edit
                 </Link>
-                <button className='flex bg-indigo-500 items-center gap-1		text-white px-4 py-2 rounded-md' >
+                <button onClick={deletto} className='flex bg-indigo-500 items-center gap-1		text-white px-4 py-2 rounded-md' >
                 <FaBox/> Delete
                 </button>
             </div>
@@ -105,7 +121,7 @@ function PostId() {
 
        </div>
 
-       <img src={post?.image} alt="" className='w-full object-cover h-[500px] mt-4'/>
+       <img src={post?.image?post.image:imageSrc} alt="" className='w-full object-cover h-[500px] mt-4'/>
        <p className='my-6'>
         {post?.description}
        </p>

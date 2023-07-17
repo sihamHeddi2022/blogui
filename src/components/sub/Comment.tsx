@@ -3,6 +3,7 @@ import { FaBox, FaEdit } from 'react-icons/fa'
 import { Rating, ThinStar } from '@smastrom/react-rating'
 import { Commenty } from '../../types'
 import EditComment from './EditComment'
+import { instance } from '../../api'
 
 type C = Commenty & {
   isAuth:boolean
@@ -17,11 +18,25 @@ function Comment(props:C) {
     inactiveFillColor: '#fbf1a9' 
   }
 
+  const deleteMe = ()=>{
+    const token = localStorage.getItem("token")
+ 
+    instance.delete(`/post/${props.pid}/feedback/${props._id}/`,{
+    headers:{
+      Authorization:"Bearer "+token
+    }
+  })
+    .then(()=>{
+      window.location.reload()
+    })
+    .catch(err=>console.log(err))
+  }
+
   const idu = localStorage.getItem("id")
   return (
     <>
      {
-      isEdited?<EditComment cid={props._id} pid={props.pid}/>:
+      isEdited?<EditComment cid={props._id} pid={props.pid} content={props.content} rating={props.reviews}/>:
       <div className='my-5'>
        
        <div className='flex gap-3'>
@@ -45,8 +60,8 @@ function Comment(props:C) {
                 <button className='text-emerald-600 flex gap-1 items-center' onClick={()=>setisEdited(true)}>
                 <FaEdit/>Edit
                 </button>
-                <button className='text-red-700 flex gap-1 items-center'>
-                <FaBox/> delete
+                <button className='text-red-700 flex gap-1 items-center' onClick={deleteMe}>
+                    <FaBox/> delete
                 </button>
           </div>
           ) 

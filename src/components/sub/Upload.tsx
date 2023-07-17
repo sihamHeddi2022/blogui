@@ -1,11 +1,12 @@
 
 import React , {useState} from 'react'
 
-function Upload() {
+function Upload(props) {
 
 
-    const [file, setFile] = useState("");
+    const [file, setFile] = useState(props.image);
     function handleChange(e) {
+        props.onChange(e.target.files[0])
         console.log(e.target.files);
         setFile(URL.createObjectURL(e.target.files[0]));
     }
@@ -20,7 +21,8 @@ function Upload() {
         
             
                 <div className="mt-2.5">
-                <input type="file" name="Image" id="Image" className="" onChange={handleChange}/>
+                <input type="file" name="Image" id="Image" className="" value={file} onChange={handleChange}/>
+                
                 </div>
         </div>
 
