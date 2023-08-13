@@ -13,7 +13,7 @@ function EditComment(props:Ids) {
     const [rating, setRating] = useState(props.rating)
     const [content, setcontent] = useState(props.content)
  
-    const handle = (e)=>{
+    const handle = (e:any)=>{
       e.preventDefault()
 
       const token = localStorage.getItem("token")
