@@ -1,6 +1,4 @@
-import React , {useState} from 'react'
 import NavBar from '../components/NavBar'
-import Upload from '../components/sub/Upload'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { instance } from '../api';

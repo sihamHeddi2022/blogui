@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import NavBar from '../components/NavBar'
 import Post from '../components/sub/Post'
 import { Link, useNavigate } from 'react-router-dom'

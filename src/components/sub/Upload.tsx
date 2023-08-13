@@ -1,11 +1,11 @@
 
-import React , {useState} from 'react'
+import {useState} from 'react'
 
-function Upload(props) {
+function Upload(props:any) {
 
 
     const [file, setFile] = useState(props.image);
-    function handleChange(e) {
+    function handleChange(e:any) {
         props.onChange(e.target.files[0])
         console.log(e.target.files);
         setFile(URL.createObjectURL(e.target.files[0]));

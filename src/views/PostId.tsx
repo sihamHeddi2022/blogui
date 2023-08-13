@@ -1,14 +1,12 @@
-import React, { useState,useEffect } from 'react'
+import { useState,useEffect } from 'react'
 import NavBar from '../components/NavBar'
 import Hero from '../components/Hero'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import {FaEdit,FaImage,FaBox} from 'react-icons/fa'
 import imageSrc from '../assets/blog.jpg';
-import { Rating, ThinStar } from '@smastrom/react-rating'
+import { Rating } from 'react-simple-star-rating'
 
-import '@smastrom/react-rating/style.css'
 import Comment from '../components/sub/Comment'
-import EditComment from '../components/sub/EditComment'
 import { instance } from '../api'
 import { Commenty, ShortPost } from '../types'
 
@@ -39,15 +37,9 @@ function PostId() {
   
 
 
-  const myStyles = {
-    itemShapes: ThinStar,
-    activeFillColor: '#ffb700',
-    inactiveFillColor: '#fbf1a9'
-  }
   
-  const handleSubmit = (e:Event)=>{
-     e.preventDefault()
-
+  const handleSubmit = ()=>{
+  
      instance.post("/post/"+post?._id+"/feedback/",{
         content:comment,
         reviews : rating
@@ -133,16 +125,16 @@ function PostId() {
                   <h2 className='font-bold text-2xl my-2'>
                   Comment Review :
                   </h2>
-                  <Rating style={{ maxWidth: 300 }} value={rating} onChange={setRating} itemStyles={myStyles} />
+                  <Rating  initialValue={rating} onClick={(e)=>setRating(e)} SVGstyle={{display:"inline"}}/>
                 </div>
                 <div className='bg-indigo-50	my-3	 w-full p-3'>
-                  <form action="" onSubmit={handleSubmit}>
+                 
                       <input type="text" required value={comment} onChange={(e)=>setcomment(e.target.value)} className='w-full p-2 outline-none' placeholder='Comment here ...' />
-                      <button type='submit' className='w-full my-2 p-2 bg-blue-700 text-white' >
+                      <button onClick={handleSubmit} className='w-full my-2 p-2 bg-blue-700 text-white' >
                         Submit
                       </button>
 
-                  </form>
+               
                
                 </div>
            

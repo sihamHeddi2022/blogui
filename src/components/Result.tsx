@@ -1,4 +1,4 @@
-import React from 'react'
+
 import Post from './sub/Post'
 import { ShortPost } from '../types'
 // import ReactPaginate from 'react-paginate'

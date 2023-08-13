@@ -1,4 +1,4 @@
-import React , {useEffect, useState} from 'react'
+import  {useEffect, useState} from 'react'
 import imageSrc from '../assets/Rectangle 4.png';
 import {useNavigate, useSearchParams } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";

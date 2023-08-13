@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+
 import { FaBox, FaEdit } from 'react-icons/fa'
-import { Rating, ThinStar } from '@smastrom/react-rating'
+import { Rating } from 'react-simple-star-rating'
 import { Commenty } from '../../types'
 import EditComment from './EditComment'
 import { instance } from '../../api'
+import { useState } from 'react'
 
 type C = Commenty & {
   isAuth:boolean
@@ -12,11 +13,6 @@ type C = Commenty & {
 }
 function Comment(props:C) {
   const [isEdited, setisEdited] = useState(false)
-  const myStyles = {
-    itemShapes: ThinStar,
-    activeFillColor: '#ffb700',
-    inactiveFillColor: '#fbf1a9' 
-  }
 
   const deleteMe = ()=>{
     const token = localStorage.getItem("token")
@@ -37,17 +33,19 @@ function Comment(props:C) {
     <>
      {
       isEdited?<EditComment cid={props._id} pid={props.pid} content={props.content} rating={props.reviews}/>:
-      <div className='my-5'>
+      <div className='my-5 w-full'>
        
-       <div className='flex gap-3'>
+       <div className='flex gap-3 w-full'>
          
          <img src="https://www.pngall.com/wp-content/uploads/12/Avatar-Profile-PNG-Images.png" className='my-4 w-[60px] h-[60px]' alt="" />
        
-         <div className='flex flex-col gap-2'>
+         <div className='flex flex-col gap-2 w-1/2'>
             <h3 className='font-bold'>
               Username
             </h3>
-            <Rating style={{ maxWidth: 122 }} value={props.reviews}  readOnly itemStyles={myStyles} />
+           
+            <Rating initialValue={props.reviews}  readonly   SVGstyle={{display:"inline"}}/>
+           
             <p>
               {props.content}
             </p>

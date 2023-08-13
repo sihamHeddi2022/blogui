@@ -1,6 +1,6 @@
-import React,{useState} from 'react'
-import { Rating, ThinStar } from '@smastrom/react-rating'
+import {useState} from 'react'
 import { instance } from '../../api'
+import { Rating } from 'react-simple-star-rating'
 
 type Ids = {
   cid:string,
@@ -12,11 +12,7 @@ type Ids = {
 function EditComment(props:Ids) {
     const [rating, setRating] = useState(props.rating)
     const [content, setcontent] = useState(props.content)
-    const myStyles = {
-      itemShapes: ThinStar,
-      activeFillColor: '#ffb700',
-      inactiveFillColor: '#fbf1a9' 
-    }
+ 
     const handle = (e)=>{
       e.preventDefault()
 
@@ -46,7 +42,7 @@ function EditComment(props:Ids) {
                     Username
                 </h3>
               <form action="" onSubmit={handle}>
-              <Rating style={{ maxWidth: 122 }} value={rating} onChange={setRating}  itemStyles={myStyles} />
+              <Rating  initialValue={rating} onClick={(e)=>setRating(e)} SVGstyle={{display:"inline"}} />
                 <div className="mt-2.5">
                         <input type="text" name="comment" id="c" value={content} onChange={(e)=>setcontent(e.target.value)} className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                 </div>
